@@ -43,6 +43,20 @@ interface Entity {
   mention_count: number;
 }
 
+interface EntityHistory {
+  hour: string;
+  mentions: number;
+  sentiment: number;
+  intent_purchase: number;
+  authors: number;
+}
+
+interface EntityIntent {
+  intent: string;
+  count: number;
+  avg_score: number;
+}
+
 interface TrendPoint {
   hour: string;
   volume: number;
@@ -363,6 +377,107 @@ function EmptyState() {
 }
 
 function EntityTable({ entities }: { entities: Entity[] }) {
+  const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
+  const [history, setHistory] = useState<EntityHistory[]>([]);
+  const [intents, setIntents] = useState<EntityIntent[]>([]);
+
+  const loadEntityDetail = async (entity: Entity) => {
+    setSelectedEntity(entity);
+    try {
+      const [histRes, intentRes] = await Promise.all([
+        fetch(`${API}/api/entities/${entity.id}/history?hours=168`),
+        fetch(`${API}/api/entities/${entity.id}/intent`),
+      ]);
+      if (histRes.ok) setHistory(await histRes.json());
+      if (intentRes.ok) setIntents(await intentRes.json());
+    } catch (e) {
+      console.error("Failed to load entity detail", e);
+    }
+  };
+
+  if (selectedEntity) {
+    return (
+      <div>
+        <button
+          onClick={() => setSelectedEntity(null)}
+          className="text-[13px] text-zinc-500 hover:text-white mb-4 flex items-center gap-1"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Back to entities
+        </button>
+
+        <div className="bg-white/[0.02] rounded-2xl border border-white/[0.06] p-6 mb-4">
+          <div className="flex items-center gap-3 mb-2">
+            <h2 className="text-xl font-semibold">{selectedEntity.name}</h2>
+            {selectedEntity.ticker && selectedEntity.ticker !== "PRIVATE" && (
+              <span className="text-[11px] font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded-md">{selectedEntity.ticker}</span>
+            )}
+          </div>
+          <div className="flex gap-6 text-[13px] text-zinc-500">
+            <span>{selectedEntity.type}</span>
+            <span>{selectedEntity.mcap_usd ? `$${(selectedEntity.mcap_usd / 1e9).toFixed(0)}B` : "Private"}</span>
+            <span>{selectedEntity.mention_count} mentions</span>
+          </div>
+        </div>
+
+        {/* Sentiment over time */}
+        <div className="bg-white/[0.02] rounded-2xl border border-white/[0.06] p-6 mb-4">
+          <h3 className="text-[13px] font-medium text-zinc-400 mb-4">Sentiment & Volume (7 days)</h3>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              {history.length > 0 ? (
+                <LineChart data={history}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
+                  <XAxis
+                    dataKey="hour"
+                    stroke="#3f3f46"
+                    fontSize={11}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(v) => v ? new Date(v).toLocaleDateString([], { weekday: 'short', hour: '2-digit' }) : ''}
+                  />
+                  <YAxis yAxisId="left" stroke="#3f3f46" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis yAxisId="right" orientation="right" stroke="#3f3f46" fontSize={11} tickLine={false} axisLine={false} domain={[-1, 1]} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: "#18181b", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, fontSize: 12 }}
+                    labelFormatter={(v) => v ? new Date(v).toLocaleString() : ''}
+                  />
+                  <Line yAxisId="left" type="monotone" dataKey="mentions" name="Mentions" stroke="#6366f1" strokeWidth={2} dot={false} />
+                  <Line yAxisId="right" type="monotone" dataKey="sentiment" name="Sentiment" stroke="#10b981" strokeWidth={2} dot={false} />
+                  <Line yAxisId="left" type="monotone" dataKey="intent_purchase" name="Purchase Intent" stroke="#f59e0b" strokeWidth={2} dot={false} strokeDasharray="5 5" />
+                </LineChart>
+              ) : (
+                <div className="flex items-center justify-center h-full text-zinc-600 text-sm">
+                  No historical data yet. Run the pipeline to populate.
+                </div>
+              )}
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Intent breakdown */}
+        {intents.length > 0 && (
+          <div className="bg-white/[0.02] rounded-2xl border border-white/[0.06] p-6">
+            <h3 className="text-[13px] font-medium text-zinc-400 mb-4">Intent Distribution</h3>
+            <div className="grid grid-cols-2 gap-3">
+              {intents.map((i) => (
+                <div key={i.intent} className="flex items-center justify-between p-3 bg-white/[0.02] rounded-xl">
+                  <span className="text-[13px] text-zinc-300 capitalize">{i.intent.replace(/_/g, ' ')}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[13px] font-mono text-zinc-400">{i.count}</span>
+                    <span className="text-[11px] text-zinc-600">({(i.avg_score * 100).toFixed(0)}%)</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white/[0.02] rounded-2xl border border-white/[0.06] overflow-hidden">
       <table className="w-full">
@@ -377,7 +492,11 @@ function EntityTable({ entities }: { entities: Entity[] }) {
         </thead>
         <tbody>
           {entities.map((e) => (
-            <tr key={e.id} className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors">
+            <tr
+              key={e.id}
+              className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors cursor-pointer"
+              onClick={() => loadEntityDetail(e)}
+            >
               <td className="p-4 text-[13px] font-medium">{e.name}</td>
               <td className="p-4">
                 {e.ticker && (

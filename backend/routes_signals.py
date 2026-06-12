@@ -156,3 +156,57 @@ def register_signal_routes(app: FastAPI):
         finally:
             conn.close()
         return mentions
+
+    @app.get("/api/entities/{entity_id}/history")
+    def get_entity_history(entity_id: int, hours: int = 168):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                SELECT
+                    date_trunc('hour', ts_hour) as hour,
+                    SUM(mention_count) as mentions,
+                    AVG(sentiment_mean) as sentiment,
+                    AVG(intent_purchase_share) as intent_purchase,
+                    SUM(unique_authors) as authors
+                FROM entity_metrics_hourly
+                WHERE entity_id = %s
+                  AND ts_hour > NOW() - interval '%s hours'
+                GROUP BY date_trunc('hour', ts_hour)
+                ORDER BY hour
+            """, (entity_id, hours))
+            history = []
+            for row in cursor.fetchall():
+                h = dict(row)
+                h["hour"] = h["hour"].isoformat() if h["hour"] else None
+                h["mentions"] = h["mentions"] or 0
+                h["sentiment"] = round(float(h["sentiment"]), 3) if h["sentiment"] else 0
+                h["intent_purchase"] = round(float(h["intent_purchase"]), 3) if h["intent_purchase"] else 0
+                h["authors"] = h["authors"] or 0
+                history.append(h)
+        finally:
+            conn.close()
+        return history
+
+    @app.get("/api/entities/{entity_id}/intent")
+    def get_entity_intent(entity_id: int):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                SELECT
+                    em.intent,
+                    COUNT(*) as count,
+                    AVG(em.intent_score) as avg_score
+                FROM entity_mentions em
+                WHERE em.entity_id = %s
+                  AND em.intent != 'neutral'
+                GROUP BY em.intent
+                ORDER BY count DESC
+            """, (entity_id,))
+            intents = [dict(row) for row in cursor.fetchall()]
+            for i in intents:
+                i["avg_score"] = round(float(i["avg_score"]), 3) if i["avg_score"] else 0
+        finally:
+            conn.close()
+        return intents
