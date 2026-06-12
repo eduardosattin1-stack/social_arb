@@ -273,3 +273,63 @@ def register_signal_routes(app: FastAPI):
         finally:
             conn.close()
         return {"stats": stats, "top_signals": top}
+
+    @app.get("/api/trends/daily")
+    def get_daily_trends(days: int = 30):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                SELECT
+                    date_trunc('day', timestamp) as day,
+                    COUNT(*) as total_posts,
+                    COUNT(DISTINCT source) as sources,
+                    COALESCE(AVG(sentiment), 0) as avg_sentiment,
+                    COUNT(CASE WHEN sentiment > 0.1 THEN 1 END) as positive,
+                    COUNT(CASE WHEN sentiment < -0.1 THEN 1 END) as negative
+                FROM posts
+                WHERE timestamp > NOW() - interval '%s days'
+                GROUP BY date_trunc('day', timestamp)
+                ORDER BY day
+            """, (days,))
+            trends = []
+            for row in cursor.fetchall():
+                t = dict(row)
+                t["day"] = t["day"].isoformat() if t["day"] else None
+                t["avg_sentiment"] = round(float(t["avg_sentiment"]), 3)
+                trends.append(t)
+        except Exception:
+            trends = []
+        finally:
+            conn.close()
+        return trends
+
+    @app.get("/api/entities/top")
+    def get_top_entities(metric: str = "mentions", limit: int = 20):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            order_col = "mention_count" if metric == "mentions" else "mention_count"
+            cursor.execute(f"""
+                SELECT e.id, e.name, e.type,
+                       (SELECT ticker FROM entity_tickers WHERE entity_id = e.id LIMIT 1) as ticker,
+                       (SELECT mcap_usd FROM entity_tickers WHERE entity_id = e.id LIMIT 1) as mcap_usd,
+                       (SELECT COUNT(*) FROM entity_mentions em WHERE em.entity_id = e.id) as mention_count,
+                       (SELECT AVG(em.intent_score) FROM entity_mentions em WHERE em.entity_id = e.id AND em.intent = 'purchased') as purchase_intent,
+                       (SELECT AVG(p.sentiment) FROM entity_mentions em JOIN posts p ON em.post_id = p.id WHERE em.entity_id = e.id) as avg_sentiment
+                FROM entities e
+                ORDER BY {order_col} DESC
+                LIMIT %s
+            """, (limit,))
+            entities = []
+            for row in cursor.fetchall():
+                ent = dict(row)
+                ent["mention_count"] = ent["mention_count"] or 0
+                ent["purchase_intent"] = round(float(ent["purchase_intent"]), 3) if ent["purchase_intent"] else 0
+                ent["avg_sentiment"] = round(float(ent["avg_sentiment"]), 3) if ent["avg_sentiment"] else 0
+                entities.append(ent)
+        except Exception:
+            entities = []
+        finally:
+            conn.close()
+        return entities

@@ -1,8 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from database import get_db_connection
 from config import DATABASE_URL
 from routes_signals import register_signal_routes
+import time
+from collections import defaultdict
 
 app = FastAPI(title="Social Radar API")
 
@@ -15,6 +18,37 @@ app.add_middleware(
 )
 
 register_signal_routes(app)
+
+rate_limit_store = defaultdict(list)
+RATE_LIMIT = 60
+RATE_WINDOW = 60
+
+
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    client_ip = request.client.host if request.client else "unknown"
+    now = time.time()
+
+    rate_limit_store[client_ip] = [
+        t for t in rate_limit_store[client_ip] if now - t < RATE_WINDOW
+    ]
+
+    if len(rate_limit_store[client_ip]) >= RATE_LIMIT:
+        return JSONResponse(
+            status_code=429,
+            content={"error": "Rate limit exceeded", "retry_after": RATE_WINDOW}
+        )
+
+    rate_limit_store[client_ip].append(now)
+    return await call_next(request)
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"error": "Internal server error", "detail": str(exc)[:200]}
+    )
 
 
 @app.get("/api/health")
@@ -41,7 +75,7 @@ def get_stats():
         source_counts = {row["source"]: row["count"] for row in cursor.fetchall()}
 
         cursor.execute("""
-            SELECT 
+            SELECT
                 COALESCE(AVG(sentiment), 0) as avg_sentiment,
                 COALESCE(SUM(CASE WHEN sentiment > 0.1 THEN 1 ELSE 0 END), 0) as positive_count,
                 COALESCE(SUM(CASE WHEN sentiment < -0.1 THEN 1 ELSE 0 END), 0) as negative_count
@@ -65,6 +99,7 @@ def get_stats():
 
 @app.get("/api/posts")
 def get_recent_posts(limit: int = 50):
+    limit = min(limit, 100)
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
@@ -78,11 +113,12 @@ def get_recent_posts(limit: int = 50):
 
 @app.get("/api/trends")
 def get_trends(hours: int = 24):
+    hours = min(hours, 168)
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
         cursor.execute("""
-            SELECT 
+            SELECT
                 date_trunc('hour', timestamp) as hour,
                 COUNT(*) as volume,
                 COALESCE(AVG(sentiment), 0) as avg_sentiment
@@ -107,7 +143,7 @@ def get_region_breakdown():
     cursor = conn.cursor()
     try:
         cursor.execute("""
-            SELECT 
+            SELECT
                 COALESCE(region, 'Global') as region,
                 COUNT(*) as volume,
                 COALESCE(AVG(sentiment), 0) as avg_sentiment
@@ -130,7 +166,7 @@ def get_topics():
     cursor = conn.cursor()
     try:
         cursor.execute("""
-            SELECT 
+            SELECT
                 COALESCE(topic, 'Unclassified') as topic,
                 COUNT(*) as volume,
                 COALESCE(AVG(sentiment), 0) as avg_sentiment
