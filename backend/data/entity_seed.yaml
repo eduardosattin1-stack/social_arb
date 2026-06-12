@@ -1562,3 +1562,110 @@ entities:
     mcap_usd: 40000000000
     mono_brand: true
     aliases: [Fanuc robot, Fanuc industrial robot]
+
+  # ===== MACRO & INDICES =====
+  - name: Brazil Selic
+    type: theme
+    ticker: SELIC
+    exchange: BCB
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [Selic rate, Brazilian interest rate, BCB rate, taxa Selic, 15.5%]
+
+  - name: Brazilian Real
+    type: theme
+    ticker: BRL
+    exchange: FOREX
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [BRL, Real, Brazilian currency, BRLUSD, USD/BRL]
+
+  - name: S&P 500
+    type: theme
+    ticker: SPY
+    exchange: NYSE
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [S&P 500, SPX, SPY, SP500, US500, American stocks]
+
+  - name: MSCI Emerging Markets
+    type: theme
+    ticker: EEM
+    exchange: NYSE
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [MSCI EM, EEM, emerging markets, developing economies]
+
+  - name: MSCI India
+    type: theme
+    ticker: INDA
+    exchange: NYSE
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [MSCI India, INDA, Indian stocks, India ETF, QDV5]
+
+  - name: Euro Interbank Rate
+    type: theme
+    ticker: EURIBOR
+    exchange: EU
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [Euribor, EURIBOR, euro deposits, European bank rates, Raisin deposits, banktegoeden]
+
+  - name: US Treasury 10Y
+    type: theme
+    ticker: TNX
+    exchange: CBOE
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [10-year yield, 10Y yield, TNX, US Treasuries, treasury bonds]
+
+  - name: VIX
+    type: theme
+    ticker: VIX
+    exchange: CBOE
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [VIX, fear index, volatility index, market fear]
+
+  # ===== GLOBAL ETFs =====
+  - name: Vanguard S&P 500 UCITS
+    type: theme
+    ticker: VUAA
+    exchange: LSE
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [VUAA, Vanguard S&P 500, VUAA LN, Vanguard accumulative S&P]
+
+  - name: iShares Core MSCI EM IMI
+    type: theme
+    ticker: EIMI
+    exchange: LSE
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [EIMI, iShares EM IMI, EIMI LN, emerging markets all-cap]
+
+  - name: iShares MSCI India
+    type: theme
+    ticker: QDV5
+    exchange: XETRA
+    mcap_usd: 0
+    mono_brand: false
+    aliases: [QDV5, iShares India, QDV5 DE, Indian equity ETF]
+
+  # ===== EQUITY SPECIAL SITUATIONS =====
+  - name: Delivery Hero
+    type: company
+    ticker: DHER
+    exchange: XETRA
+    mcap_usd: 15000000000
+    mono_brand: false
+    aliases: [Delivery Hero, DHER, DHER book, Sep 24C, Uber catalyst, Foodora, Talabat]
+
+  - name: Uber
+    type: company
+    ticker: UBER
+    exchange: NYSE
+    mcap_usd: 180000000000
+    mono_brand: true
+    aliases: [Uber, UBER, Uber Eats, Uber Technologies, Uber catalyst]
