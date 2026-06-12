@@ -1,0 +1,15 @@
+fastapi==0.136.1
+uvicorn==0.34.2
+psycopg2-binary==2.9.12
+python-dotenv==1.1.0
+sqlalchemy==2.0.49
+alembic==1.18.4
+httpx==0.28.1
+feedparser==6.0.12
+pytrends==4.9.2
+transformers==5.11.0
+torch==2.12.0
+sentencepiece==0.2.1
+tiktoken==0.13.0
+pyyaml==6.0.3
+requests==2.32.5
