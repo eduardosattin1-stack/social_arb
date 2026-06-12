@@ -8,7 +8,7 @@ venv/
 .gitignore
 *.db
 *.sqlite
-alembic/
 *.md
 .dockerignore
 Dockerfile
+node_modules

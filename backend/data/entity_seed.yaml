@@ -1237,3 +1237,328 @@ entities:
     mcap_usd: 2000000000
     mono_brand: true
     aliases: [Linear app, Linear project management]
+
+  # ===== SEMICONDUCTORS =====
+  - name: AMD
+    type: company
+    ticker: AMD
+    exchange: NASDAQ
+    mcap_usd: 250000000000
+    mono_brand: false
+    aliases: [AMD chips, AMD Ryzen, AMD Radeon, EPYC]
+
+  - name: Intel
+    type: company
+    ticker: INTC
+    exchange: NASDAQ
+    mcap_usd: 100000000000
+    mono_brand: false
+    aliases: [Intel chips, Intel Core, Intel Arc]
+
+  - name: Qualcomm
+    type: company
+    ticker: QCOM
+    exchange: NASDAQ
+    mcap_usd: 200000000000
+    mono_brand: false
+    aliases: [Qualcomm Snapdragon, Qualcomm chip]
+
+  - name: Broadcom
+    type: company
+    ticker: AVGO
+    exchange: NASDAQ
+    mcap_usd: 800000000000
+    mono_brand: false
+    aliases: [Broadcom chip, VMware]
+
+  - name: Texas Instruments
+    type: company
+    ticker: TXN
+    exchange: NASDAQ
+    mcap_usd: 180000000000
+    mono_brand: false
+    aliases: [TI chips, Texas Instruments analog]
+
+  - name: Micron Technology
+    type: company
+    ticker: MU
+    exchange: NASDAQ
+    mcap_usd: 120000000000
+    mono_brand: false
+    aliases: [Micron memory, Micron HBM, Micron DRAM]
+
+  - name: ASML
+    type: company
+    ticker: ASML
+    exchange: NASDAQ
+    mcap_usd: 350000000000
+    mono_brand: true
+    aliases: [ASML lithography, ASML EUV machine]
+
+  - name: TSMC
+    type: company
+    ticker: TSM
+    exchange: NYSE
+    mcap_usd: 900000000000
+    mono_brand: true
+    aliases: [Taiwan Semiconductor, TSMC chips]
+
+  - name: Arm Holdings
+    type: company
+    ticker: ARM
+    exchange: NASDAQ
+    mcap_usd: 130000000000
+    mono_brand: true
+    aliases: [Arm chips, Arm architecture, Arm CPU]
+
+  - name: Marvell Technology
+    type: company
+    ticker: MRVL
+    exchange: NASDAQ
+    mcap_usd: 70000000000
+    mono_brand: false
+    aliases: [Marvell chip, Marvell data center]
+
+  - name: ON Semiconductor
+    type: company
+    ticker: ON
+    exchange: NASDAQ
+    mcap_usd: 30000000000
+    mono_brand: false
+    aliases: [onsemi, ON Semi chips]
+
+  - name: Wolfspeed
+    type: company
+    ticker: WOLF
+    exchange: NASDAQ
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Wolfspeed SiC, Wolfspeed carbide]
+
+  # ===== QUANTUM COMPUTING =====
+  - name: IonQ
+    type: company
+    ticker: IONQ
+    exchange: NYSE
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [IonQ quantum, IonQ computer]
+
+  - name: Rigetti Computing
+    type: company
+    ticker: RGTI
+    exchange: NASDAQ
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Rigetti quantum, Rigetti chip]
+
+  - name: D-Wave Quantum
+    type: company
+    ticker: QBTS
+    exchange: NYSE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [D-Wave quantum, D-Wave annealer]
+
+  - name: Quantum Computing Inc
+    type: company
+    ticker: QUBT
+    exchange: NASDAQ
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [QCI quantum, Quantum Computing Inc]
+
+  - name: PsiQuantum
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [PsiQuantum photonic, PsiQuantum chip]
+
+  # ===== RARE EARTH & CRITICAL MINERALS =====
+  - name: MP Materials
+    type: company
+    ticker: MP
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [MP Materials rare earth, MP mine]
+
+  - name: Lynas Rare Earths
+    type: company
+    ticker: LYC
+    exchange: ASX
+    mcap_usd: 4000000000
+    mono_brand: true
+    aliases: [Lynas rare earth, Lynas minerals]
+
+  - name: Albemarle
+    type: company
+    ticker: ALB
+    exchange: NYSE
+    mcap_usd: 12000000000
+    mono_brand: false
+    aliases: [Albemarle lithium, Albemarle chemicals]
+
+  - name: Livent
+    type: company
+    ticker: LTHM
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Livent lithium, Livent battery materials]
+
+  - name: Piedmont Lithium
+    type: company
+    ticker: PLL
+    exchange: NASDAQ
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Piedmont lithium, Piedmont mine]
+
+  - name: Energy Fuels
+    type: company
+    ticker: UUUU
+    exchange: NYSE
+    mcap_usd: 1500000000
+    mono_brand: false
+    aliases: [Energy Fuels uranium, Energy Fuels rare earth]
+
+  # ===== NUCLEAR / SMR =====
+  - name: NuScale Power
+    type: company
+    ticker: SMR
+    exchange: NYSE
+    mcap_usd: 4000000000
+    mono_brand: true
+    aliases: [NuScale SMR, NuScale reactor]
+
+  - name: Oklo
+    type: company
+    ticker: OKLO
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Oklo reactor, Oklo micro reactor, Sam Altman nuclear]
+
+  - name: TerraPower
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [TerraPower Natrium, Bill Gates nuclear]
+
+  - name: X-energy
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [X-energy reactor, Xe-100 reactor]
+
+  - name: BWX Technologies
+    type: company
+    ticker: BWXT
+    exchange: NYSE
+    mcap_usd: 9000000000
+    mono_brand: false
+    aliases: [BWXT nuclear, BWXT fuel]
+
+  - name: Cameco
+    type: company
+    ticker: CCJ
+    exchange: NYSE
+    mcap_usd: 25000000000
+    mono_brand: false
+    aliases: [Cameco uranium, Cameco fuel]
+
+  - name: Centrus Energy
+    type: company
+    ticker: LEU
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Centrus HALEU, Centrus uranium]
+
+  # ===== ROBOTICS & AI HARDWARE =====
+  - name: Boston Dynamics
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Boston Dynamics Spot, Atlas robot, Boston Dynamics dog]
+
+  - name: Figure AI
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Figure robot, Figure humanoid, Figure 02]
+
+  - name: Tesla Optimus
+    type: product
+    ticker: TSLA
+    exchange: NASDAQ
+    mcap_usd: 800000000000
+    mono_brand: false
+    aliases: [Optimus robot, Tesla bot, Optimus Gen 2]
+
+  - name: 1X Technologies
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [1X NEO, 1X humanoid, 1X robot]
+
+  - name: Agility Robotics
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 1000000000
+    mono_brand: true
+    aliases: [Digit robot, Agility Digit]
+
+  - name: Symbotic
+    type: company
+    ticker: SYM
+    exchange: NASDAQ
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [Symbotic warehouse robot, Symbotic automation]
+
+  - name: Intuitive Surgical
+    type: company
+    ticker: ISRG
+    exchange: NASDAQ
+    mcap_usd: 180000000000
+    mono_brand: true
+    aliases: [da Vinci robot, Intuitive robotic surgery]
+
+  - name: Cognex
+    type: company
+    ticker: CGNX
+    exchange: NASDAQ
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Cognex vision, Cognex machine vision]
+
+  - name: Rockwell Automation
+    type: company
+    ticker: ROK
+    exchange: NYSE
+    mcap_usd: 25000000000
+    mono_brand: false
+    aliases: [Rockwell, Allen-Bradley, FactoryTalk]
+
+  - name: Fanuc
+    type: company
+    ticker: FANUY
+    exchange: OTC
+    mcap_usd: 40000000000
+    mono_brand: true
+    aliases: [Fanuc robot, Fanuc industrial robot]
