@@ -210,3 +210,66 @@ def register_signal_routes(app: FastAPI):
         finally:
             conn.close()
         return intents
+
+    @app.get("/api/clusters")
+    def get_topic_clusters(limit: int = 20):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                SELECT topic_id, label, keywords, count, created_at
+                FROM topic_clusters
+                ORDER BY count DESC
+                LIMIT %s
+            """, (limit,))
+            clusters = []
+            for row in cursor.fetchall():
+                c = dict(row)
+                c["created_at"] = c["created_at"].isoformat() if c["created_at"] else None
+                clusters.append(c)
+        except Exception:
+            clusters = []
+        finally:
+            conn.close()
+        return clusters
+
+    @app.get("/api/backtest")
+    def get_backtest():
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                SELECT
+                    COUNT(*) as total_signals,
+                    COALESCE(AVG(return_5d), 0) as avg_return_5d,
+                    COALESCE(AVG(return_21d), 0) as avg_return_21d,
+                    COALESCE(AVG(return_63d), 0) as avg_return_63d,
+                    SUM(CASE WHEN return_21d > 0.05 THEN 1 ELSE 0 END) as winners_21d,
+                    COUNT(CASE WHEN return_21d IS NOT NULL THEN 1 END) as measured_21d
+                FROM signal_backtest
+            """)
+            stats = dict(cursor.fetchone())
+
+            cursor.execute("""
+                SELECT s.entity_name, s.tickers, sb.return_21d, sb.created_at
+                FROM signal_backtest sb
+                JOIN signals s ON sb.signal_id = s.id
+                WHERE sb.return_21d IS NOT NULL
+                ORDER BY sb.return_21d DESC
+                LIMIT 10
+            """)
+            top = []
+            for row in cursor.fetchall():
+                t = dict(row)
+                t["created_at"] = t["created_at"].isoformat() if t["created_at"] else None
+                t["return_21d"] = round(float(t["return_21d"]), 4) if t["return_21d"] else 0
+                top.append(t)
+
+            for k in ["avg_return_5d", "avg_return_21d", "avg_return_63d"]:
+                stats[k] = round(float(stats[k]), 4) if stats[k] else 0
+        except Exception:
+            stats = {"total_signals": 0, "avg_return_5d": 0, "avg_return_21d": 0, "avg_return_63d": 0, "winners_21d": 0, "measured_21d": 0}
+            top = []
+        finally:
+            conn.close()
+        return {"stats": stats, "top_signals": top}

@@ -69,6 +69,30 @@ interface TopicData {
   avg_sentiment: number;
 }
 
+interface TopicCluster {
+  topic_id: number;
+  label: string;
+  keywords: string;
+  count: number;
+  created_at: string;
+}
+
+interface BacktestStats {
+  total_signals: number;
+  avg_return_5d: number;
+  avg_return_21d: number;
+  avg_return_63d: number;
+  winners_21d: number;
+  measured_21d: number;
+}
+
+interface BacktestSignal {
+  entity_name: string;
+  tickers: string;
+  return_21d: number;
+  created_at: string;
+}
+
 const TOPIC_COLORS: Record<string, string> = {
   ai_tech: "#6366f1",
   crypto: "#f59e0b",
@@ -96,18 +120,23 @@ export default function Dashboard() {
   const [entities, setEntities] = useState<Entity[]>([]);
   const [trends, setTrends] = useState<TrendPoint[]>([]);
   const [topics, setTopics] = useState<TopicData[]>([]);
-  const [activeTab, setActiveTab] = useState<"signals" | "entities" | "topics">("signals");
+  const [clusters, setClusters] = useState<TopicCluster[]>([]);
+  const [backtestStats, setBacktestStats] = useState<BacktestStats | null>(null);
+  const [backtestSignals, setBacktestSignals] = useState<BacktestSignal[]>([]);
+  const [activeTab, setActiveTab] = useState<"signals" | "entities" | "topics" | "clusters" | "backtest">("signals");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statsRes, signalsRes, entitiesRes, trendsRes, topicsRes] = await Promise.all([
+        const [statsRes, signalsRes, entitiesRes, trendsRes, topicsRes, clustersRes, backtestRes] = await Promise.all([
           fetch(`${API}/api/stats`),
           fetch(`${API}/api/signals?status=new&limit=20`),
           fetch(`${API}/api/entities?limit=100`),
           fetch(`${API}/api/trends?hours=24`),
           fetch(`${API}/api/topics`),
+          fetch(`${API}/api/clusters?limit=20`),
+          fetch(`${API}/api/backtest`),
         ]);
 
         if (statsRes.ok) setStats(await statsRes.json());
@@ -121,6 +150,12 @@ export default function Dashboard() {
           })));
         }
         if (topicsRes.ok) setTopics(await topicsRes.json());
+        if (clustersRes.ok) setClusters(await clustersRes.json());
+        if (backtestRes.ok) {
+          const bt = await backtestRes.json();
+          setBacktestStats(bt.stats);
+          setBacktestSignals(bt.top_signals);
+        }
       } catch (e) {
         console.error("Fetch error:", e);
       } finally {
@@ -243,7 +278,7 @@ export default function Dashboard() {
 
           {/* Tabs */}
           <div className="flex gap-1 mb-6 bg-white/[0.02] rounded-xl p-1 w-fit border border-white/[0.06]">
-            {(["signals", "entities", "topics"] as const).map((tab) => (
+            {(["signals", "entities", "topics", "clusters", "backtest"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -275,6 +310,14 @@ export default function Dashboard() {
 
           {activeTab === "topics" && (
             <TopicBreakdown topics={topics} />
+          )}
+
+          {activeTab === "clusters" && (
+            <ClusterView clusters={clusters} />
+          )}
+
+          {activeTab === "backtest" && (
+            <BacktestView stats={backtestStats} signals={backtestSignals} />
           )}
         </main>
       )}
@@ -543,6 +586,107 @@ function TopicBreakdown({ topics }: { topics: TopicData[] }) {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function ClusterView({ clusters }: { clusters: TopicCluster[] }) {
+  return (
+    <div>
+      <div className="bg-white/[0.02] rounded-2xl p-6 border border-white/[0.06] mb-4">
+        <h3 className="text-[13px] font-medium text-zinc-400 mb-2">Emerging Themes (BERTopic)</h3>
+        <p className="text-[12px] text-zinc-600 mb-6">Auto-discovered topic clusters from the last 14 days of posts. New clusters with high growth = emerging trends.</p>
+        {clusters.length === 0 ? (
+          <div className="text-center py-12 text-zinc-600 text-sm">
+            No clusters yet. Run the nightly clustering job to generate topics.
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-3">
+            {clusters.map((c) => (
+              <div key={c.topic_id} className="bg-white/[0.02] rounded-xl p-4 border border-white/[0.04] hover:border-white/[0.1] transition-colors">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[13px] font-medium text-zinc-200">{c.label}</span>
+                  <span className="text-[11px] font-mono text-zinc-500">{c.count} posts</span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {c.keywords.split(",").slice(0, 6).map((kw, i) => (
+                    <span key={i} className="text-[10px] bg-white/[0.06] text-zinc-500 px-2 py-0.5 rounded">
+                      {kw.trim()}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function BacktestView({ stats, signals }: { stats: BacktestStats | null; signals: BacktestSignal[] }) {
+  return (
+    <div>
+      <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="bg-white/[0.02] rounded-2xl p-5 border border-white/[0.06]">
+          <div className="text-[11px] text-zinc-500 uppercase tracking-wider mb-2">Total Signals</div>
+          <div className="text-3xl font-bold">{stats?.total_signals || 0}</div>
+        </div>
+        <div className="bg-white/[0.02] rounded-2xl p-5 border border-white/[0.06]">
+          <div className="text-[11px] text-zinc-500 uppercase tracking-wider mb-2">Avg 5d Return</div>
+          <div className={`text-3xl font-bold ${(stats?.avg_return_5d || 0) > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+            {((stats?.avg_return_5d || 0) * 100).toFixed(1)}%
+          </div>
+        </div>
+        <div className="bg-white/[0.02] rounded-2xl p-5 border border-white/[0.06]">
+          <div className="text-[11px] text-zinc-500 uppercase tracking-wider mb-2">Avg 21d Return</div>
+          <div className={`text-3xl font-bold ${(stats?.avg_return_21d || 0) > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+            {((stats?.avg_return_21d || 0) * 100).toFixed(1)}%
+          </div>
+        </div>
+        <div className="bg-white/[0.02] rounded-2xl p-5 border border-white/[0.06]">
+          <div className="text-[11px] text-zinc-500 uppercase tracking-wider mb-2">Win Rate (21d)</div>
+          <div className="text-3xl font-bold text-indigo-400">
+            {stats?.measured_21d ? `${((stats.winners_21d / stats.measured_21d) * 100).toFixed(0)}%` : "N/A"}
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white/[0.02] rounded-2xl border border-white/[0.06] overflow-hidden">
+        <div className="p-4 border-b border-white/[0.04]">
+          <h3 className="text-[13px] font-medium text-zinc-400">Top Performing Signals</h3>
+        </div>
+        {signals.length === 0 ? (
+          <div className="p-12 text-center text-zinc-600 text-sm">
+            No backtest data yet. Signals need 21+ days to measure returns.
+          </div>
+        ) : (
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-white/[0.04]">
+                <th className="text-left text-[11px] font-medium text-zinc-500 uppercase tracking-wider p-4">Entity</th>
+                <th className="text-left text-[11px] font-medium text-zinc-500 uppercase tracking-wider p-4">Ticker</th>
+                <th className="text-right text-[11px] font-medium text-zinc-500 uppercase tracking-wider p-4">21d Return</th>
+                <th className="text-right text-[11px] font-medium text-zinc-500 uppercase tracking-wider p-4">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {signals.map((s, i) => (
+                <tr key={i} className="border-b border-white/[0.03] hover:bg-white/[0.02]">
+                  <td className="p-4 text-[13px] font-medium">{s.entity_name}</td>
+                  <td className="p-4 text-[11px] font-mono text-zinc-400">{s.tickers}</td>
+                  <td className={`p-4 text-right text-[13px] font-mono font-medium ${s.return_21d > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                    {s.return_21d > 0 ? '+' : ''}{(s.return_21d * 100).toFixed(1)}%
+                  </td>
+                  <td className="p-4 text-right text-[12px] text-zinc-500">
+                    {new Date(s.created_at).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
