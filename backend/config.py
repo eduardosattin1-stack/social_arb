@@ -15,4 +15,6 @@ REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT", "SocialRadar/1.0")
 
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "")
 
+FMP_API_KEY = os.getenv("FMP_API_KEY", "")
+
 LLM_DAILY_TOKEN_BUDGET = int(os.getenv("LLM_DAILY_TOKEN_BUDGET", "50000"))
