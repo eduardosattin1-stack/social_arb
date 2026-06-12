@@ -1,0 +1,174 @@
+sources:
+  hackernews:
+    enabled: true
+    cadence: fast
+    geo_scope: global
+    lang_hint: en
+    tos_posture: public_feed
+    rate_limit: "10 req/min"
+    adapter: scraper_hackernews
+    config: {}
+
+  mastodon:
+    enabled: true
+    cadence: fast
+    geo_scope: global
+    lang_hint: multilingual
+    tos_posture: public_feed
+    rate_limit: "30 req/min"
+    adapter: scraper_mastodon
+    config:
+      instances:
+        - https://mastodon.social
+        - https://fosstodon.org
+        - https://techhub.social
+
+  reddit:
+    enabled: true
+    cadence: medium
+    geo_scope: global
+    lang_hint: en
+    tos_posture: public_feed
+    rate_limit: "1 req/5s"
+    adapter: scraper_reddit
+    config:
+      subreddits:
+        - technology
+        - stocks
+        - CryptoCurrency
+        - ElectricVehicles
+        - Futurology
+        - wallstreetbets
+        - worldnews
+        - artificial
+      subreddits_per_run: 3
+
+  newsapi:
+    enabled: true
+    cadence: medium
+    geo_scope: global
+    lang_hint: en
+    tos_posture: official_api
+    rate_limit: "100 req/day"
+    adapter: scraper_newsapi
+    config:
+      queries:
+        - artificial intelligence
+        - cryptocurrency
+        - electric vehicles
+        - tech stocks
+        - climate technology
+
+  bluesky:
+    enabled: false
+    cadence: fast
+    geo_scope: global
+    lang_hint: multilingual
+    tos_posture: public_feed
+    rate_limit: "30 req/min"
+    adapter: scraper_bluesky
+    config: {}
+
+  gdelt:
+    enabled: false
+    cadence: medium
+    geo_scope: global
+    lang_hint: multilingual
+    tos_posture: official_api
+    rate_limit: "1 req/sec"
+    adapter: scraper_gdelt
+    config: {}
+
+  youtube:
+    enabled: true
+    cadence: daily
+    geo_scope: global
+    lang_hint: multilingual
+    tos_posture: official_api
+    rate_limit: "10k units/day"
+    adapter: scraper_youtube
+    config: {}
+
+  google_trends:
+    enabled: false
+    cadence: daily
+    geo_scope: per_country
+    lang_hint: multilingual
+    tos_posture: scrape_with_care
+    rate_limit: "10 req/hour"
+    adapter: scraper_google_trends
+    config:
+      countries:
+        - US
+        - BR
+        - DE
+        - GB
+        - IN
+        - JP
+        - KR
+
+  wikipedia:
+    enabled: false
+    cadence: daily
+    geo_scope: global
+    lang_hint: multilingual
+    tos_posture: official_api
+    rate_limit: "200 req/sec"
+    adapter: scraper_wikipedia
+    config: {}
+
+  app_store:
+    enabled: false
+    cadence: daily
+    geo_scope: per_country
+    lang_hint: multilingual
+    tos_posture: public_feed
+    rate_limit: "1 req/min"
+    adapter: scraper_app_store
+    config:
+      countries:
+        - US
+        - BR
+        - DE
+        - GB
+        - FR
+        - IN
+        - JP
+        - KR
+        - ID
+        - MX
+        - NG
+        - TR
+        - SA
+        - AU
+        - CA
+
+  stocktwits:
+    enabled: false
+    cadence: medium
+    geo_scope: us
+    lang_hint: en
+    tos_posture: public_feed
+    rate_limit: "10 req/min"
+    adapter: scraper_stocktwits
+    config: {}
+
+  steam:
+    enabled: false
+    cadence: daily
+    geo_scope: global
+    lang_hint: en
+    tos_posture: official_api
+    rate_limit: "10 req/min"
+    adapter: scraper_steam
+    config: {}
+
+  github:
+    enabled: false
+    cadence: daily
+    geo_scope: global
+    lang_hint: en
+    tos_posture: official_api
+    rate_limit: "60 req/hour"
+    adapter: scraper_github
+    config: {}

@@ -1,0 +1,1239 @@
+entities:
+  # Tech Giants
+  - name: Apple
+    type: brand
+    ticker: AAPL
+    exchange: NASDAQ
+    mcap_usd: 3000000000000
+    mono_brand: false
+    aliases: [Apple Inc, iPhone, iPad, Mac, MacBook, AirPods, Apple Watch]
+
+  - name: Microsoft
+    type: brand
+    ticker: MSFT
+    exchange: NASDAQ
+    mcap_usd: 3200000000000
+    mono_brand: false
+    aliases: [Microsoft Corp, Windows, Azure, Xbox, LinkedIn, Teams, Copilot]
+
+  - name: Google
+    type: brand
+    ticker: GOOGL
+    exchange: NASDAQ
+    mcap_usd: 2100000000000
+    mono_brand: false
+    aliases: [Alphabet, YouTube, Android, Chrome, Gemini, Pixel, Nest]
+
+  - name: Amazon
+    type: brand
+    ticker: AMZN
+    exchange: NASDAQ
+    mcap_usd: 2000000000000
+    mono_brand: false
+    aliases: [Amazon Prime, AWS, Kindle, Echo, Alexa, Ring, Fire TV]
+
+  - name: Meta
+    type: brand
+    ticker: META
+    exchange: NASDAQ
+    mcap_usd: 1500000000000
+    mono_brand: false
+    aliases: [Facebook, Instagram, WhatsApp, Oculus, Quest, Threads, Ray-Ban Meta]
+
+  - name: Nvidia
+    type: brand
+    ticker: NVDA
+    exchange: NASDAQ
+    mcap_usd: 300000000000
+    mono_brand: false
+    aliases: [NVIDIA, GeForce, RTX, CUDA, DGX]
+
+  # Consumer Brands (Camillo archetype)
+  - name: Crocs
+    type: brand
+    ticker: CROX
+    exchange: NASDAQ
+    mcap_usd: 6000000000
+    mono_brand: true
+    aliases: [Crocs shoes, Crocs clogs, Jibbitz]
+
+  - name: e.l.f. Beauty
+    type: brand
+    ticker: ELF
+    exchange: NYSE
+    mcap_usd: 8000000000
+    mono_brand: true
+    aliases: [e.l.f., ELF Cosmetics, elf beauty]
+
+  - name: Celsius
+    type: product
+    ticker: CELH
+    exchange: NASDAQ
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Celsius energy, Celsius drink, CELSIUS]
+
+  - name: YETI
+    type: brand
+    ticker: YETI
+    exchange: NYSE
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [YETI cooler, YETI tumbler, YETI cup]
+
+  - name: Olaplex
+    type: brand
+    ticker: OLPX
+    exchange: NASDAQ
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Olaplex hair, Olaplex treatment]
+
+  - name: Bird
+    type: brand
+    ticker: BIRD
+    exchange: NYSE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Bird scooter, Bird Electric]
+
+  - name: FIGS
+    type: brand
+    ticker: FIGS
+    exchange: NYSE
+    mcap_usd: 1500000000
+    mono_brand: true
+    aliases: [FIGS scrubs, FIGS medical]
+
+  - name: Deckers
+    type: company
+    ticker: DECK
+    exchange: NYSE
+    mcap_usd: 15000000000
+    mono_brand: false
+    aliases: [Hoka, UGG, Teva, Deckers Brands]
+
+  - name: On Running
+    type: brand
+    ticker: ONON
+    exchange: NYSE
+    mcap_usd: 12000000000
+    mono_brand: true
+    aliases: [On shoes, On running, ONON]
+
+  - name: Lululemon
+    type: brand
+    ticker: LULU
+    exchange: NASDAQ
+    mcap_usd: 45000000000
+    mono_brand: true
+    aliases: [lululemon, LULU athletica, Align pants]
+
+  - name: Duolingo
+    type: brand
+    ticker: DUOL
+    exchange: NASDAQ
+    mcap_usd: 8000000000
+    mono_brand: true
+    aliases: [Duolingo app, Duo owl]
+
+  - name: Roblox
+    type: brand
+    ticker: RBLX
+    exchange: NYSE
+    mcap_usd: 30000000000
+    mono_brand: true
+    aliases: [Roblox game, Roblox platform]
+
+  - name: Peloton
+    type: brand
+    ticker: PTON
+    exchange: NASDAQ
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Peloton bike, Peloton treadmill]
+
+  - name: Wingstop
+    type: brand
+    ticker: WING
+    exchange: NASDAQ
+    mcap_usd: 4000000000
+    mono_brand: true
+    aliases: [Wingstop wings, Wingstop restaurant]
+
+  - name: CAVA
+    type: brand
+    ticker: CAVA
+    exchange: NYSE
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [CAVA group, CAVA restaurant, CAVA bowl]
+
+  - name: Shake Shack
+    type: brand
+    ticker: SHAK
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Shake Shack burger, Shake Shack]
+
+  - name: GoPro
+    type: brand
+    ticker: GPRO
+    exchange: NASDAQ
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [GoPro camera, GoPro Hero]
+
+  - name: Sonos
+    type: brand
+    ticker: SONO
+    exchange: NASDAQ
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Sonos speaker, Sonos soundbar]
+
+  - name: Capri Holdings
+    type: company
+    ticker: CPHR
+    exchange: NYSE
+    mcap_usd: 8000000000
+    mono_brand: false
+    aliases: [Versace, Michael Kors, Jimmy Choo]
+
+  - name: Skechers
+    type: brand
+    ticker: SKX
+    exchange: NYSE
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Skechers shoes, Skechers sneakers]
+
+  - name: Dutch Bros
+    type: brand
+    ticker: BROS
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Dutch Bros coffee, BROS]
+
+  # EV & Clean Energy
+  - name: Tesla
+    type: company
+    ticker: TSLA
+    exchange: NASDAQ
+    mcap_usd: 800000000000
+    mono_brand: false
+    aliases: [Tesla Model 3, Model Y, Cybertruck, FSD, Autopilot, Powerwall]
+
+  - name: Rivian
+    type: company
+    ticker: RIVN
+    exchange: NASDAQ
+    mcap_usd: 15000000000
+    mono_brand: true
+    aliases: [Rivian R1T, R1S, R3, Rivian truck]
+
+  - name: Lucid
+    type: company
+    ticker: LCID
+    exchange: NASDAQ
+    mcap_usd: 7000000000
+    mono_brand: true
+    aliases: [Lucid Air, Lucid Gravity]
+
+  - name: Enphase Energy
+    type: company
+    ticker: ENPH
+    exchange: NASDAQ
+    mcap_usd: 20000000000
+    mono_brand: true
+    aliases: [Enphase microinverter, Enphase solar]
+
+  - name: SolarEdge
+    type: company
+    ticker: SEDG
+    exchange: NASDAQ
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [SolarEdge inverter]
+
+  # Gaming
+  - name: Take-Two
+    type: company
+    ticker: TTWO
+    exchange: NASDAQ
+    mcap_usd: 30000000000
+    mono_brand: false
+    aliases: [GTA, Grand Theft Auto, NBA 2K, Rockstar Games, Zynga]
+
+  - name: Electronic Arts
+    type: company
+    ticker: EA
+    exchange: NASDAQ
+    mcap_usd: 40000000000
+    mono_brand: false
+    aliases: [EA Sports, FIFA, Madden, Battlefield, Apex Legends]
+
+  - name: Nintendo
+    type: company
+    ticker: NTDOY
+    exchange: OTC
+    mcap_usd: 60000000000
+    mono_brand: false
+    aliases: [Nintendo Switch, Switch 2, Mario, Zelda, Pokemon]
+
+  # Crypto
+  - name: Coinbase
+    type: company
+    ticker: COIN
+    exchange: NASDAQ
+    mcap_usd: 50000000000
+    mono_brand: true
+    aliases: [Coinbase exchange, COIN]
+
+  - name: MicroStrategy
+    type: company
+    ticker: MSTR
+    exchange: NASDAQ
+    mcap_usd: 20000000000
+    mono_brand: false
+    aliases: [MicroStrategy Bitcoin, MSTR]
+
+  # Food & Beverage
+  - name: Starbucks
+    type: brand
+    ticker: SBUX
+    exchange: NASDAQ
+    mcap_usd: 100000000000
+    mono_brand: true
+    aliases: [Starbucks coffee, Starbucks cup]
+
+  - name: Chipotle
+    type: brand
+    ticker: CMG
+    exchange: NYSE
+    mcap_usd: 80000000000
+    mono_brand: true
+    aliases: [Chipotle Mexican, Chipotle bowl]
+
+  - name: Sweetgreen
+    type: brand
+    ticker: SG
+    exchange: NYSE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Sweetgreen salad, SG]
+
+  # Health & Fitness
+  - name: Garmin
+    type: brand
+    ticker: GRMN
+    exchange: NASDAQ
+    mcap_usd: 35000000000
+    mono_brand: true
+    aliases: [Garmin watch, Garmin Fenix, Garmin Venu]
+
+  - name: Apple Watch
+    type: product
+    ticker: AAPL
+    exchange: NASDAQ
+    mcap_usd: 3000000000000
+    mono_brand: false
+    aliases: [Apple Watch Ultra, Apple Watch Series]
+
+  # Chinese Tech
+  - name: Alibaba
+    type: company
+    ticker: BABA
+    exchange: NYSE
+    mcap_usd: 200000000000
+    mono_brand: false
+    aliases: [Alibaba Cloud, Taobao, Tmall, AliExpress]
+
+  - name: JD.com
+    type: company
+    ticker: JD
+    exchange: NASDAQ
+    mcap_usd: 50000000000
+    mono_brand: false
+    aliases: [JD.com shopping, Jingdong]
+
+  - name: PDD Holdings
+    type: company
+    ticker: PDD
+    exchange: NASDAQ
+    mcap_usd: 150000000000
+    mono_brand: false
+    aliases: [Temu, Pinduoduo, Temu app]
+
+  # Software/SaaS
+  - name: Salesforce
+    type: company
+    ticker: CRM
+    exchange: NYSE
+    mcap_usd: 280000000000
+    mono_brand: false
+    aliases: [Salesforce CRM, Slack, Tableau]
+
+  - name: Datadog
+    type: company
+    ticker: DDOG
+    exchange: NASDAQ
+    mcap_usd: 40000000000
+    mono_brand: true
+    aliases: [Datadog monitoring, DDOG]
+
+  - name: Cloudflare
+    type: company
+    ticker: NET
+    exchange: NYSE
+    mcap_usd: 35000000000
+    mono_brand: true
+    aliases: [Cloudflare CDN, NET, Workers]
+
+  - name: MongoDB
+    type: company
+    ticker: MDB
+    exchange: NASDAQ
+    mcap_usd: 25000000000
+    mono_brand: true
+    aliases: [MongoDB Atlas, MDB]
+
+  - name: Atlassian
+    type: company
+    ticker: TEAM
+    exchange: NASDAQ
+    mcap_usd: 45000000000
+    mono_brand: false
+    aliases: [Jira, Confluence, Trello, Bitbucket]
+
+  # Social/Creator
+  - name: Spotify
+    type: brand
+    ticker: SPOT
+    exchange: NYSE
+    mcap_usd: 60000000000
+    mono_brand: true
+    aliases: [Spotify music, Spotify Wrapped]
+
+  - name: Snap
+    type: brand
+    ticker: SNAP
+    exchange: NYSE
+    mcap_usd: 20000000000
+    mono_brand: false
+    aliases: [Snapchat, Snap AR, Spectacles]
+
+  - name: Pinterest
+    type: brand
+    ticker: PINS
+    exchange: NYSE
+    mcap_usd: 25000000000
+    mono_brand: true
+    aliases: [Pinterest pins, PINS]
+
+  # Retail
+  - name: Costco
+    type: brand
+    ticker: COST
+    exchange: NASDAQ
+    mcap_usd: 400000000000
+    mono_brand: true
+    aliases: [Costco wholesale, Costco membership]
+
+  - name: Shopify
+    type: company
+    ticker: SHOP
+    exchange: NYSE
+    mcap_usd: 120000000000
+    mono_brand: true
+    aliases: [Shopify store, Shopify merchant]
+
+  - name: Chewy
+    type: brand
+    ticker: CHWY
+    exchange: NYSE
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Chewy pet, Chewy autoship]
+
+  # Additional Consumer Brands
+  - name: LVMH
+    type: company
+    ticker: LVMUY
+    exchange: OTC
+    mcap_usd: 400000000000
+    mono_brand: false
+    aliases: [Louis Vuitton, Dior, Fendi, Givenchy, Sephora, Tiffany]
+
+  - name: Nike
+    type: brand
+    ticker: NKE
+    exchange: NYSE
+    mcap_usd: 150000000000
+    mono_brand: true
+    aliases: [Nike shoes, Air Jordan, Dunk, Air Max, Nike Run Club]
+
+  - name: Adidas
+    type: brand
+    ticker: ADDYY
+    exchange: OTC
+    mcap_usd: 40000000000
+    mono_brand: true
+    aliases: [Adidas shoes, Yeezy, Ultraboost, Samba]
+
+  - name: Puma
+    type: brand
+    ticker: PMMAF
+    exchange: OTC
+    mcap_usd: 8000000000
+    mono_brand: true
+    aliases: [Puma shoes, Puma sneakers]
+
+  - name: Under Armour
+    type: brand
+    ticker: UAA
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [UA, Under Armour shoes, Curry shoes]
+
+  - name: Ralph Lauren
+    type: brand
+    ticker: RL
+    exchange: NYSE
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Ralph Lauren Polo, Polo shirt, RL]
+
+  - name: Tapestry
+    type: company
+    ticker: TPR
+    exchange: NYSE
+    mcap_usd: 10000000000
+    mono_brand: false
+    aliases: [Coach, Kate Spade, Stuart Weitzman]
+
+  - name: PVH
+    type: company
+    ticker: PVH
+    exchange: NYSE
+    mcap_usd: 8000000000
+    mono_brand: false
+    aliases: [Calvin Klein, Tommy Hilfiger]
+
+  - name: Warby Parker
+    type: brand
+    ticker: WRBY
+    exchange: NYSE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Warby glasses, Warby sunglasses]
+
+  - name: Allbirds
+    type: brand
+    ticker: BIRD
+    exchange: NASDAQ
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Allbirds shoes, Allbirds wool]
+
+  - name: Bombas
+    type: brand
+    ticker: BMBL
+    exchange: NYSE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Bombas socks, Bombas t-shirts]
+
+  - name: Glossier
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 1000000000
+    mono_brand: true
+    aliases: [Glossier beauty, Glossier skincare]
+
+  - name: Drunk Elephant
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 800000000
+    mono_brand: true
+    aliases: [Drunk Elephant skincare, DE]
+
+  - name: CeraVe
+    type: product
+    ticker: LRLCY
+    exchange: OTC
+    mcap_usd: 200000000000
+    mono_brand: false
+    aliases: [CeraVe skincare, CeraVe lotion]
+
+  - name: The Ordinary
+    type: brand
+    ticker: EMA
+    exchange: TSX
+    mcap_usd: 5000000000
+    mono_brand: false
+    aliases: [The Ordinary skincare, Deciem]
+
+  - name: Aerie
+    type: brand
+    ticker: AEO
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: false
+    aliases: [Aerie clothing, Aerie leggings]
+
+  - name: Skims
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 4000000000
+    mono_brand: true
+    aliases: [Skims shapewear, Skims clothes]
+
+  - name: Fabletics
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Fabletics activewear, Fabletics leggings]
+
+  - name: Outdoor Voices
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [OV clothing, Outdoor Voices activewear]
+
+  - name: Vuori
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 4000000000
+    mono_brand: true
+    aliases: [Vuori clothing, Vuori activewear]
+
+  - name: Alo Yoga
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Alo leggings, Alo yoga clothes]
+
+  - name: Lululemon
+    type: brand
+    ticker: LULU
+    exchange: NASDAQ
+    mcap_usd: 45000000000
+    mono_brand: true
+    aliases: [lululemon, LULU athletica, Align pants]
+
+  # Food & Beverage
+  - name: Monster Beverage
+    type: brand
+    ticker: MNST
+    exchange: NASDAQ
+    mcap_usd: 55000000000
+    mono_brand: true
+    aliases: [Monster energy, Monster drink]
+
+  - name: Red Bull
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 20000000000
+    mono_brand: true
+    aliases: [Red Bull energy, Red Bull drink]
+
+  - name: Oatly
+    type: brand
+    ticker: OTLY
+    exchange: NASDAQ
+    mcap_usd: 1000000000
+    mono_brand: true
+    aliases: [Oatly oat milk, Oatly barista]
+
+  - name: Perfect Day
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 1000000000
+    mono_brand: true
+    aliases: [Perfect Day protein, animal-free dairy]
+
+  - name: Impossible Foods
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 4000000000
+    mono_brand: true
+    aliases: [Impossible burger, Impossible meat]
+
+  - name: Beyond Meat
+    type: brand
+    ticker: BYND
+    exchange: NASDAQ
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Beyond burger, Beyond meat]
+
+  - name: Celsius
+    type: product
+    ticker: CELH
+    exchange: NASDAQ
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Celsius energy, Celsius drink, CELSIUS]
+
+  - name: Alani Nu
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Alani Nu energy, Alani Nu drink]
+
+  - name: Prime
+    type: product
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [Prime drink, Prime energy, Logan Paul Prime]
+
+  - name: Panera Bread
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 7000000000
+    mono_brand: true
+    aliases: [Panera, Panera bread, Panera soup]
+
+  - name: Chick-fil-A
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 15000000000
+    mono_brand: true
+    aliases: [Chickfila, CFA]
+
+  - name: Wingstop
+    type: brand
+    ticker: WING
+    exchange: NASDAQ
+    mcap_usd: 4000000000
+    mono_brand: true
+    aliases: [Wingstop wings, Wingstop restaurant]
+
+  - name: CAVA
+    type: brand
+    ticker: CAVA
+    exchange: NYSE
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [CAVA group, CAVA restaurant, CAVA bowl]
+
+  - name: Sweetgreen
+    type: brand
+    ticker: SG
+    exchange: NYSE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Sweetgreen salad, SG]
+
+  - name: First Watch
+    type: brand
+    ticker: FWRG
+    exchange: NASDAQ
+    mcap_usd: 1500000000
+    mono_brand: true
+    aliases: [First Watch restaurant, First Watch breakfast]
+
+  - name: Dutch Bros
+    type: brand
+    ticker: BROS
+    exchange: NYSE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Dutch Bros coffee, BROS]
+
+  - name: Portillo's
+    type: brand
+    ticker: PTLO
+    exchange: NASDAQ
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Portillo's hot dogs, Portillo's beef]
+
+  # Home & Lifestyle
+  - name: Peloton
+    type: brand
+    ticker: PTON
+    exchange: NASDAQ
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Peloton bike, Peloton treadmill]
+
+  - name: YETI
+    type: brand
+    ticker: YETI
+    exchange: NYSE
+    mcap_usd: 5000000000
+    mono_brand: true
+    aliases: [YETI cooler, YETI tumbler, YETI cup]
+
+  - name: Hydro Flask
+    type: brand
+    ticker: BOOT
+    exchange: NYSE
+    mcap_usd: 5000000000
+    mono_brand: false
+    aliases: [Hydro Flask bottle, Hydro Flask cup]
+
+  - name: Stanley
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Stanley cup, Stanley tumbler, Stanley bottle]
+
+  - name: Nespresso
+    type: product
+    ticker: NSRGY
+    exchange: OTC
+    mcap_usd: 300000000000
+    mono_brand: false
+    aliases: [Nespresso machine, Nespresso pods]
+
+  - name: Keurig
+    type: brand
+    ticker: KDP
+    exchange: NASDAQ
+    mcap_usd: 40000000000
+    mono_brand: false
+    aliases: [Keurig machine, Keurig pods, K-Cups]
+
+  - name: Dyson
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 15000000000
+    mono_brand: true
+    aliases: [Dyson vacuum, Dyson hair dryer, Dyson fan]
+
+  - name: iRobot
+    type: brand
+    ticker: IRBT
+    exchange: NASDAQ
+    mcap_usd: 1000000000
+    mono_brand: true
+    aliases: [Roomba, iRobot vacuum]
+
+  - name: Oura
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Oura ring, Oura health ring]
+
+  - name: Whoop
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Whoop band, Whoop strap]
+
+  - name: Therabody
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 1000000000
+    mono_brand: true
+    aliases: [Theragun, Therabody massager]
+
+  - name: Hyperice
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Hypervolt, Hyperice massager]
+
+  # Pet
+  - name: BarkBox
+    type: brand
+    ticker: BARK
+    exchange: NYSE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [BarkBox, Bark Super Chewer]
+
+  - name: Farmer's Dog
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 1000000000
+    mono_brand: true
+    aliases: [Farmer's Dog food, fresh dog food]
+
+  - name: Ollie
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Ollie dog food, Ollie pet food]
+
+  # Travel & Experience
+  - name: Airbnb
+    type: brand
+    ticker: ABNB
+    exchange: NASDAQ
+    mcap_usd: 80000000000
+    mono_brand: true
+    aliases: [Airbnb listing, Airbnb stay]
+
+  - name: Booking Holdings
+    type: company
+    ticker: BKNG
+    exchange: NASDAQ
+    mcap_usd: 150000000000
+    mono_brand: false
+    aliases: [Booking.com, Priceline, Kayak]
+
+  - name: Expedia
+    type: company
+    ticker: EXPE
+    exchange: NASDAQ
+    mcap_usd: 20000000000
+    mono_brand: false
+    aliases: [Expedia travel, Hotels.com, Vrbo]
+
+  # Entertainment & Media
+  - name: Netflix
+    type: brand
+    ticker: NFLX
+    exchange: NASDAQ
+    mcap_usd: 300000000000
+    mono_brand: true
+    aliases: [Netflix show, Netflix series, Netflix movie]
+
+  - name: Disney
+    type: company
+    ticker: DIS
+    exchange: NYSE
+    mcap_usd: 200000000000
+    mono_brand: false
+    aliases: [Disney+, Marvel, Star Wars, Pixar, ESPN]
+
+  - name: Warner Bros Discovery
+    type: company
+    ticker: WBD
+    exchange: NASDAQ
+    mcap_usd: 30000000000
+    mono_brand: false
+    aliases: [Max, HBO, HBO Max, Discovery+]
+
+  - name: Paramount
+    type: company
+    ticker: PARA
+    exchange: NASDAQ
+    mcap_usd: 10000000000
+    mono_brand: false
+    aliases: [Paramount+, CBS, Nickelodeon, MTV]
+
+  - name: AMC Entertainment
+    type: brand
+    ticker: AMC
+    exchange: NYSE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [AMC theaters, AMC movie]
+
+  # Fitness & Sports
+  - name: Lululemon
+    type: brand
+    ticker: LULU
+    exchange: NASDAQ
+    mcap_usd: 45000000000
+    mono_brand: true
+    aliases: [lululemon, LULU athletica, Align pants]
+
+  - name: Gymshark
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 1500000000
+    mono_brand: true
+    aliases: [Gymshark clothing, Gymshark activewear]
+
+  - name: CrossFit
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [CrossFit gym, CrossFit workout]
+
+  - name: Strava
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 1500000000
+    mono_brand: true
+    aliases: [Strava app, Strava running]
+
+  - name: Zwift
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 1000000000
+    mono_brand: true
+    aliases: [Zwift cycling, Zwift running]
+
+  # Beauty & Personal Care
+  - name: Fenty Beauty
+    type: brand
+    ticker: LVMUY
+    exchange: OTC
+    mcap_usd: 400000000000
+    mono_brand: false
+    aliases: [Fenty, Fenty makeup, Rihanna beauty]
+
+  - name: Charlotte Tilbury
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Charlotte Tilbury makeup, CT]
+
+  - name: Tatcha
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Tatcha skincare, Tatcha moisturizer]
+
+  - name: Supergoop
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Supergoop sunscreen, Supergoop SPF]
+
+  - name: Sol de Janeiro
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Sol de Janeiro lotion, Brazilian Bum Bum]
+
+  # Gaming & Entertainment
+  - name: Roblox
+    type: brand
+    ticker: RBLX
+    exchange: NYSE
+    mcap_usd: 30000000000
+    mono_brand: true
+    aliases: [Roblox game, Roblox platform]
+
+  - name: Discord
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 15000000000
+    mono_brand: true
+    aliases: [Discord app, Discord server]
+
+  - name: Twitch
+    type: brand
+    ticker: AMZN
+    exchange: NASDAQ
+    mcap_usd: 2000000000000
+    mono_brand: false
+    aliases: [Twitch stream, Twitch streamer]
+
+  - name: Epic Games
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 30000000000
+    mono_brand: false
+    aliases: [Fortnite, Unreal Engine, Epic Store]
+
+  - name: Supercell
+    type: company
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 10000000000
+    mono_brand: false
+    aliases: [Clash of Clans, Clash Royale, Brawl Stars]
+
+  # Auto & EV
+  - name: Lucid
+    type: company
+    ticker: LCID
+    exchange: NASDAQ
+    mcap_usd: 7000000000
+    mono_brand: true
+    aliases: [Lucid Air, Lucid Gravity]
+
+  - name: Rivian
+    type: company
+    ticker: RIVN
+    exchange: NASDAQ
+    mcap_usd: 15000000000
+    mono_brand: true
+    aliases: [Rivian R1T, R1S, R3, Rivian truck]
+
+  - name: Polestar
+    type: brand
+    ticker: PSNY
+    exchange: NASDAQ
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Polestar 2, Polestar 3]
+
+  - name: Fisker
+    type: company
+    ticker: FSR
+    exchange: NYSE
+    mcap_usd: 500000000
+    mono_brand: true
+    aliases: [Fisker Ocean, Fisker vehicle]
+
+  - name: NIO
+    type: company
+    ticker: NIO
+    exchange: NYSE
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [NIO car, NIO ET7, NIO battery swap]
+
+  - name: XPeng
+    type: company
+    ticker: XPEV
+    exchange: NYSE
+    mcap_usd: 8000000000
+    mono_brand: true
+    aliases: [XPeng car, XPeng P7]
+
+  - name: Li Auto
+    type: company
+    ticker: LI
+    exchange: NASDAQ
+    mcap_usd: 15000000000
+    mono_brand: true
+    aliases: [Li Auto car, Li L9]
+
+  # Energy & Sustainability
+  - name: Enphase Energy
+    type: company
+    ticker: ENPH
+    exchange: NASDAQ
+    mcap_usd: 20000000000
+    mono_brand: true
+    aliases: [Enphase microinverter, Enphase solar]
+
+  - name: SolarEdge
+    type: company
+    ticker: SEDG
+    exchange: NASDAQ
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [SolarEdge inverter]
+
+  - name: Sunrun
+    type: company
+    ticker: RUN
+    exchange: NASDAQ
+    mcap_usd: 4000000000
+    mono_brand: true
+    aliases: [Sunrun solar, Sunrun panels]
+
+  - name: ChargePoint
+    type: company
+    ticker: CHPT
+    exchange: NYSE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [ChargePoint charging, ChargePoint station]
+
+  - name: Blink Charging
+    type: company
+    ticker: BLNK
+    exchange: NASDAQ
+    mcap_usd: 300000000
+    mono_brand: true
+    aliases: [Blink charging, Blink station]
+
+  # Software & SaaS
+  - name: Notion
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Notion app, Notion workspace]
+
+  - name: Figma
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 10000000000
+    mono_brand: true
+    aliases: [Figma design, Figma app]
+
+  - name: Linear
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Linear app, Linear project management]
+
+  - name: Vercel
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Vercel platform, Vercel deploy]
+
+  - name: Supabase
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Supabase database, Supabase auth]
+
+  - name: Retool
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 3000000000
+    mono_brand: true
+    aliases: [Retool app, Retool internal tools]
+
+  - name: Linear
+    type: brand
+    ticker: PRIVATE
+    exchange: PRIVATE
+    mcap_usd: 2000000000
+    mono_brand: true
+    aliases: [Linear app, Linear project management]
