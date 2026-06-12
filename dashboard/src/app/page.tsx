@@ -124,6 +124,8 @@ export default function Dashboard() {
   const [backtestStats, setBacktestStats] = useState<BacktestStats | null>(null);
   const [backtestSignals, setBacktestSignals] = useState<BacktestSignal[]>([]);
   const [activeTab, setActiveTab] = useState<"signals" | "entities" | "topics" | "clusters" | "backtest">("signals");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState<string>("all");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -169,6 +171,16 @@ export default function Dashboard() {
   }, []);
 
   const topEntities = entities.sort((a, b) => b.mention_count - a.mention_count).slice(0, 8);
+
+  const filteredEntities = entities.filter((e) => {
+    const matchesSearch = !searchQuery ||
+      e.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (e.ticker && e.ticker.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchesType = typeFilter === "all" || e.type === typeFilter;
+    return matchesSearch && matchesType;
+  });
+
+  const entityTypes = [...new Set(entities.map(e => e.type))];
 
   return (
     <div className="min-h-screen bg-[#09090b] text-white selection:bg-indigo-500/30">
@@ -305,7 +317,7 @@ export default function Dashboard() {
           )}
 
           {activeTab === "entities" && (
-            <EntityTable entities={entities} />
+            <EntityTable entities={filteredEntities} entityTypes={entityTypes} searchQuery={searchQuery} setSearchQuery={setSearchQuery} typeFilter={typeFilter} setTypeFilter={setTypeFilter} />
           )}
 
           {activeTab === "topics" && (
@@ -419,7 +431,14 @@ function EmptyState() {
   );
 }
 
-function EntityTable({ entities }: { entities: Entity[] }) {
+function EntityTable({ entities, entityTypes, searchQuery, setSearchQuery, typeFilter, setTypeFilter }: {
+  entities: Entity[];
+  entityTypes: string[];
+  searchQuery: string;
+  setSearchQuery: (q: string) => void;
+  typeFilter: string;
+  setTypeFilter: (t: string) => void;
+}) {
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
   const [history, setHistory] = useState<EntityHistory[]>([]);
   const [intents, setIntents] = useState<EntityIntent[]>([]);
@@ -522,8 +541,47 @@ function EntityTable({ entities }: { entities: Entity[] }) {
   }
 
   return (
-    <div className="bg-white/[0.02] rounded-2xl border border-white/[0.06] overflow-hidden">
-      <table className="w-full">
+    <div>
+      {/* Search and Filter Bar */}
+      <div className="flex gap-3 mb-4">
+        <div className="relative flex-1">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Search by name or ticker..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-white/[0.02] border border-white/[0.06] rounded-xl pl-10 pr-4 py-2.5 text-[13px] text-white placeholder-zinc-500 focus:outline-none focus:border-white/[0.15] transition-colors"
+          />
+        </div>
+        <div className="flex gap-1 bg-white/[0.02] rounded-xl p-1 border border-white/[0.06]">
+          <button
+            onClick={() => setTypeFilter("all")}
+            className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all ${
+              typeFilter === "all" ? "bg-white/[0.08] text-white" : "text-zinc-500 hover:text-zinc-300"
+            }`}
+          >
+            All
+          </button>
+          {entityTypes.map((t) => (
+            <button
+              key={t}
+              onClick={() => setTypeFilter(t)}
+              className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all capitalize ${
+                typeFilter === t ? "bg-white/[0.08] text-white" : "text-zinc-500 hover:text-zinc-300"
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white/[0.02] rounded-2xl border border-white/[0.06] overflow-hidden">
+        <table className="w-full">
         <thead>
           <tr className="border-b border-white/[0.04]">
             <th className="text-left text-[11px] font-medium text-zinc-500 uppercase tracking-wider p-4">Entity</th>
@@ -555,6 +613,7 @@ function EntityTable({ entities }: { entities: Entity[] }) {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
