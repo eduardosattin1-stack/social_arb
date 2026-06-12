@@ -123,10 +123,11 @@ def register_signal_routes(app: FastAPI):
         try:
             cursor.execute("""
                 SELECT e.id, e.name, e.type,
-                       et.ticker, et.mcap_usd, et.mono_brand,
+                       (SELECT ticker FROM entity_tickers WHERE entity_id = e.id LIMIT 1) as ticker,
+                       (SELECT mcap_usd FROM entity_tickers WHERE entity_id = e.id LIMIT 1) as mcap_usd,
+                       (SELECT mono_brand FROM entity_tickers WHERE entity_id = e.id LIMIT 1) as mono_brand,
                        (SELECT COUNT(*) FROM entity_mentions em WHERE em.entity_id = e.id) as mention_count
                 FROM entities e
-                LEFT JOIN entity_tickers et ON e.id = et.entity_id
                 ORDER BY mention_count DESC
                 LIMIT %s
             """, (limit,))
