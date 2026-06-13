@@ -765,7 +765,7 @@ function BacktestView({ stats, signals }: { stats: BacktestStats | null; signals
                   <td className="p-4 text-[11px] font-mono text-zinc-400">{s.tickers}</td>
                   <td className={`p-4 text-right text-[13px] font-mono font-medium ${s.return_21d > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                     {s.return_21d > 0 ? '+' : ''}{(s.return_21d * 100).toFixed(1)}%
-                </td>
+                  </td>
                 <td className="p-4 text-right text-[12px] text-zinc-500">
                   {new Date(s.created_at).toLocaleDateString()}
                 </td>
