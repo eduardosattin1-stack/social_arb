@@ -398,15 +398,15 @@ function SignalCard({ signal: s }: { signal: Signal }) {
           <span className="text-zinc-400">
             Gap <span className="text-white font-mono">{s.gap_score.toFixed(1)}</span>
           </span>
-          <span className="text-zinc-600">×</span>
+          <span className="text-zinc-600">x</span>
           <span className="text-zinc-400">
             Materiality <span className="text-white font-mono">{(s.materiality * 100).toFixed(0)}%</span>
           </span>
-          <span className="text-zinc-600">×</span>
+          <span className="text-zinc-600">x</span>
           <span className="text-zinc-400">
             Corroboration <span className="text-white font-mono">x{s.corroboration}</span>
           </span>
-          <span className="text-zinc-600">×</span>
+          <span className="text-zinc-600">x</span>
           <span className="text-zinc-400">
             Intent <span className="text-white font-mono">{((s.intent_purchase_share || 0) * 100).toFixed(0)}%</span>
           </span>
