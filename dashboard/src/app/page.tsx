@@ -123,7 +123,7 @@ export default function Dashboard() {
   const [clusters, setClusters] = useState<TopicCluster[]>([]);
   const [backtestStats, setBacktestStats] = useState<BacktestStats | null>(null);
   const [backtestSignals, setBacktestSignals] = useState<BacktestSignal[]>([]);
-  const [activeTab, setActiveTab] = useState<"signals" | "entities" | "topics" | "clusters" | "backtest">("signals");
+  const [activeTab, setActiveTab] = useState<"signals" | "entities" | "topics" | "clusters" | "backtest" | "compare">("signals");
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [loading, setLoading] = useState(true);
@@ -290,7 +290,7 @@ export default function Dashboard() {
 
           {/* Tabs */}
           <div className="flex gap-1 mb-6 bg-white/[0.02] rounded-xl p-1 w-fit border border-white/[0.06]">
-            {(["signals", "entities", "topics", "clusters", "backtest"] as const).map((tab) => (
+            {(["signals", "entities", "compare", "clusters", "backtest"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -330,6 +330,10 @@ export default function Dashboard() {
 
           {activeTab === "backtest" && (
             <BacktestView stats={backtestStats} signals={backtestSignals} />
+          )}
+
+          {activeTab === "compare" && (
+            <CompareView entities={entities} />
           )}
         </main>
       )}
@@ -385,6 +389,30 @@ function SignalCard({ signal: s }: { signal: Signal }) {
         <MetricBlock label="Awareness" value={s.awareness_index.toFixed(1)} color={s.awareness_index < 1 ? "text-emerald-400" : "text-amber-400"} />
         <MetricBlock label="Platforms" value={`x${s.corroboration}`} />
         <MetricBlock label="Materiality" value={`${(s.materiality * 100).toFixed(0)}%`} />
+      </div>
+
+      {/* Anomaly Breakdown */}
+      <div className="bg-white/[0.02] rounded-xl p-3 mb-4">
+        <div className="text-[10px] text-zinc-500 uppercase tracking-wider mb-2">Score Breakdown</div>
+        <div className="flex items-center gap-4 text-[11px]">
+          <span className="text-zinc-400">
+            Gap <span className="text-white font-mono">{s.gap_score.toFixed(1)}</span>
+          </span>
+          <span className="text-zinc-600">×</span>
+          <span className="text-zinc-400">
+            Materiality <span className="text-white font-mono">{(s.materiality * 100).toFixed(0)}%</span>
+          </span>
+          <span className="text-zinc-600">×</span>
+          <span className="text-zinc-400">
+            Corroboration <span className="text-white font-mono">x{s.corroboration}</span>
+          </span>
+          <span className="text-zinc-600">×</span>
+          <span className="text-zinc-400">
+            Intent <span className="text-white font-mono">{((s.intent_purchase_share || 0) * 100).toFixed(0)}%</span>
+          </span>
+          <span className="text-zinc-600">=</span>
+          <span className="text-indigo-400 font-semibold">{s.signal_score.toFixed(0)}</span>
+        </div>
       </div>
 
       {/* Narrative */}
@@ -737,16 +765,107 @@ function BacktestView({ stats, signals }: { stats: BacktestStats | null; signals
                   <td className="p-4 text-[11px] font-mono text-zinc-400">{s.tickers}</td>
                   <td className={`p-4 text-right text-[13px] font-mono font-medium ${s.return_21d > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                     {s.return_21d > 0 ? '+' : ''}{(s.return_21d * 100).toFixed(1)}%
-                  </td>
-                  <td className="p-4 text-right text-[12px] text-zinc-500">
-                    {new Date(s.created_at).toLocaleDateString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+                </td>
+                <td className="p-4 text-right text-[12px] text-zinc-500">
+                  {new Date(s.created_at).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
+function CompareView({ entities }: { entities: Entity[] }) {
+  const [selected, setSelected] = useState<number[]>([]);
+  const [compareData, setCompareData] = useState<Record<number, EntityHistory[]>>({});
+
+  const toggleEntity = async (id: number) => {
+    const newSelected = selected.includes(id)
+      ? selected.filter(s => s !== id)
+      : [...selected, id].slice(-4);
+
+    setSelected(newSelected);
+
+    for (const eid of newSelected) {
+      if (!compareData[eid]) {
+        try {
+          const res = await fetch(`${API}/api/entities/${eid}/history?hours=168`);
+          if (res.ok) {
+            const data = await res.json();
+            setCompareData(prev => ({ ...prev, [eid]: data }));
+          }
+        } catch (e) {}
+      }
+    }
+  };
+
+  const COLORS = ["#6366f1", "#10b981", "#f59e0b", "#ef4444"];
+
+  return (
+    <div>
+      <div className="bg-white/[0.02] rounded-2xl p-6 border border-white/[0.06] mb-4">
+        <h3 className="text-[13px] font-medium text-zinc-400 mb-4">Compare Entities (select up to 4)</h3>
+        <div className="flex flex-wrap gap-2">
+          {entities.filter(e => e.ticker && e.ticker !== "PRIVATE").slice(0, 20).map((e) => (
+            <button
+              key={e.id}
+              onClick={() => toggleEntity(e.id)}
+              className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all border ${
+                selected.includes(e.id)
+                  ? "bg-indigo-500/20 text-indigo-300 border-indigo-500/30"
+                  : "bg-white/[0.02] text-zinc-500 border-white/[0.06] hover:border-white/[0.15]"
+              }`}
+            >
+              {e.ticker}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {selected.length > 0 && (
+        <div className="bg-white/[0.02] rounded-2xl p-6 border border-white/[0.06]">
+          <h3 className="text-[13px] font-medium text-zinc-400 mb-4">Sentiment Comparison (7 days)</h3>
+          <div className="h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
+                <XAxis
+                  dataKey="hour"
+                  stroke="#3f3f46"
+                  fontSize={11}
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(v) => v ? new Date(v).toLocaleDateString([], { weekday: 'short' }) : ''}
+                />
+                <YAxis stroke="#3f3f46" fontSize={11} tickLine={false} axisLine={false} domain={[-1, 1]} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: "#18181b", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, fontSize: 12 }}
+                />
+                <Legend />
+                {selected.map((eid, i) => {
+                  const entity = entities.find(e => e.id === eid);
+                  const data = compareData[eid] || [];
+                  return (
+                    <Line
+                      key={eid}
+                      type="monotone"
+                      data={data.map((d, idx) => ({ ...d, idx }))}
+                      dataKey="sentiment"
+                      name={entity?.name || `Entity ${eid}`}
+                      stroke={COLORS[i % COLORS.length]}
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                  );
+                })}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
