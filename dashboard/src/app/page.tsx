@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip,
-  ResponsiveContainer, CartesianGrid, Cell
+  ResponsiveContainer, CartesianGrid, Legend, Cell
 } from "recharts";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -28,6 +28,7 @@ interface Signal {
   velocity_z: number;
   corroboration: number;
   materiality: number;
+  intent_purchase_share: number | null;
   status: string;
   created_at: string;
   narrative: string | null;
@@ -772,8 +773,9 @@ function BacktestView({ stats, signals }: { stats: BacktestStats | null; signals
               </tr>
             ))}
           </tbody>
-        </table>
-      )}
+          </table>
+        )}
+      </div>
     </div>
   );
 }
